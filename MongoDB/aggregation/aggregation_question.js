@@ -36,14 +36,13 @@ db.employees
 db.employees.find({ salary: { $gt: 50000 } }, { _id: 0, salary: 1, name: 1 });
 
 // Give me the total amount the company is spending on these people
-
-// Find the average salary of the emploies working in the company
 db.employees.aggregate([
   { $match: { salary: { $gt: 50000 } } },
   { $group: { _id: null, final_id: { $sum: "$salary" } } },
   { $project: { _id: 0 } },
 ]);
 
+// Find the average salary of the emploies working in the company
 db.employees.aggregate([
   { $match: { salary: { $gt: 50000 } } },
   { $group: { _id: null, average_salary: { $avg: "$salary" } } },
